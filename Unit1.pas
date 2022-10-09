@@ -13,16 +13,16 @@ uses
 
 type
   TProva = class(TForm)
-    Edit1: TEdit;
-    Button1: TButton;
-    Edit2: TEdit;
+    edtTotal: TEdit;
+    btnDVDs: TButton;
+    edtNdvds: TEdit;
     FDConnection: TFDConnection;
     nomeProduto: TEdit;
     valorProduto: TEdit;
-    Button2: TButton;
+    btnCproduto: TButton;
     SQLQuery: TFDQuery;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure btnDVDsClick(Sender: TObject);
+    procedure btnCprodutoClick(Sender: TObject);
   private
     function contaDVD(qDVD:integer):Double;
     function insereProduto(valor:Double; nome:string):Integer;
@@ -41,13 +41,13 @@ implementation
 
 {$R *.dfm}
 
-procedure TProva.Button1Click(Sender: TObject);
+procedure TProva.btnDVDsClick(Sender: TObject);
 var produtos:Integer;
 begin
-  Edit1.Text := FloatToStr(contaDVD(StrToInt(Edit2.Text)));
+  edtTotal.Text := FloatToStr(contaDVD(StrToInt(edtNdvds.Text)));
 end;
 
-procedure TProva.Button2Click(Sender: TObject);
+procedure TProva.btnCprodutoClick(Sender: TObject);
 var np:string;
     vp:Double;
 begin
@@ -60,12 +60,7 @@ begin
   valorProduto.Text := '';
 end;
 
-procedure TProva.insereProdutoDesconto(idProduto:integer; quantidade:Integer; valor:double);
-{
-Escreva uma função para inserir um registro na tabela ProdutoDesconto, usando
-comandos SQL, que recebe como parâmetro o código do produto, a quantidade
-inicial da faixa e o valor.
-}
+procedure TProva.insereProdutoDesconto(idProduto:integer; quantidade:Integer; valor:double); //1
 begin
   SQLQuery.Close;
   SQLQuery.SQL.Clear;
@@ -80,12 +75,7 @@ begin
   SQLQuery.Close;
 end;
 
-function TProva.insereProduto(valor:Double; nome:string):Integer;
-{
-Escreva uma função para inserir um registro na tabela produto, usando comandos
-SQL, que recebe como parâmetro o nome do produto e o valor e retorna o código
-que deve ser gerado por esta função.
-}
+function TProva.insereProduto(valor:Double; nome:string):Integer; //2
 var id:Integer;
 begin
   SQLQuery.Close;
@@ -109,11 +99,7 @@ begin
   insereProduto := id;
 end;
 
-function TProva.contaProduto(qtd:Integer; idProduto:Integer):double;
-{
-QUESTÃO D) Escreva uma função que utilize as funções criadas acima, para inserir
- os registros no banco de dados do problema do EXERCÍCIO 1.
-}
+function TProva.contaProduto(qtd:Integer; idProduto:Integer):double;//3
 var total, valor:Double;
     qtdItens:Integer;
   procedure incrementaTotal(conta:double);
@@ -143,14 +129,7 @@ begin
   contaProduto := total;
 end;
 
-function TProva.contaDVD(qDVD:integer):double;
-{
-Uma loja vende DVDs por R$ 1,10 a unidade. Acima de 10 unidades, será vendido
-cada DVD por R$ 1,00 a unidade adicional e acima de 20 unidades, será vendido
-cada unidade adicional a R$ 0,90. Exemplo, vendendo 21 unidades deverá ser
-cobrado 10x1.10+10x1.00+1x0.90. Escreva uma função (utilizando Delphi / Pascal)
-que receba a quantidade de DVDs a ser vendida e retorne o valor desta venda.
-}
+function TProva.contaDVD(qDVD:integer):double; //4
 var total, valorDVD:Double;
     totalDVDs:Integer;
   procedure incrementaTotal(valor:double);
@@ -173,17 +152,8 @@ begin
   contaDVD := total;
 end;
 
-function TProva.valorVenda(idProduto:Integer; qtd:integer):double;
+function TProva.valorVenda(idProduto:Integer; qtd:integer):double; //5
 var total, valor:double;
-{
-QUESTÃO E) Escreva uma função que receba como parâmetro o código do produto e a
-quantidade a ser vendida, e retorne o valor total da venda. Nesta questão deverá
- ser feito consultas às tabelas criadas no exercício anterior, de forma que
- implemente um algoritmo baseado na questão A) porém com valores armazenados e
- não fixos.  Atenção para o fato de que no exercício A) só temos duas faixas de
- desconto e, neste exercício, as faixas de desconto estão armazenadas na tabela.
-}
-
 begin
   SQLQuery.Close;
   SQLQuery.SQL.Clear;

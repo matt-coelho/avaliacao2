@@ -13,7 +13,7 @@ object Prova: TProva
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Edit1: TEdit
+  object edtTotal: TEdit
     Left = 8
     Top = 35
     Width = 121
@@ -21,16 +21,16 @@ object Prova: TProva
     TabOrder = 0
     Text = 'total'
   end
-  object Button1: TButton
+  object btnDVDs: TButton
     Left = 24
     Top = 62
     Width = 75
     Height = 25
     Caption = 'DVDs'
     TabOrder = 1
-    OnClick = Button1Click
+    OnClick = btnDVDsClick
   end
-  object Edit2: TEdit
+  object edtNdvds: TEdit
     Left = 8
     Top = 8
     Width = 121
@@ -54,14 +54,14 @@ object Prova: TProva
     TabOrder = 4
     Text = 'valor'
   end
-  object Button2: TButton
+  object btnCproduto: TButton
     Left = 24
     Top = 246
     Width = 75
     Height = 25
     Caption = 'C.produto'
     TabOrder = 5
-    OnClick = Button2Click
+    OnClick = btnCprodutoClick
   end
   object FDConnection: TFDConnection
     Params.Strings = (
